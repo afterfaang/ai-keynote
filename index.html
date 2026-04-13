@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Keynote — Bediz Kılıçkını & Serhat Bıçakçı</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #fafafa;
+    color: #1a1a2e;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    background: linear-gradient(180deg, #ffffff 0%, #f0f0ff 50%, #fafafa 100%);
+  }
+
+  .hero-label {
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #6366f1;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #1a1a2e 0%, #6366f1 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+    color: #6b7280;
+    max-width: 600px;
+    margin-bottom: 2rem;
+  }
+
+  .speakers {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .speaker-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 100px;
+    padding: 0.5rem 1.2rem 0.5rem 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .speaker-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: #fff;
+  }
+
+  .speaker-avatar.bk { background: linear-gradient(135deg, #818cf8, #6366f1); }
+  .speaker-avatar.sb { background: linear-gradient(135deg, #f472b6, #ec4899); }
+
+  .speaker-name { font-weight: 500; font-size: 0.9rem; color: #1a1a2e; }
+  .speaker-role { font-size: 0.75rem; color: #9ca3af; }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    animation: bounce 2s infinite;
+    color: #c4c4c4;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* Container */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Section */
+  .section {
+    padding: 5rem 0;
+    position: relative;
+  }
+
+  .section + .section {
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .section-number {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #6366f1;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .section h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    color: #1a1a2e;
+  }
+
+  .section-lead {
+    font-size: 1.05rem;
+    color: #6b7280;
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+  }
+
+  /* Topic Card */
+  .topic-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .topic-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: all 0.3s ease;
+    cursor: default;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .topic-card:hover {
+    border-color: #c7d2fe;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.08);
+  }
+
+  .topic-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #1a1a2e;
+  }
+
+  .topic-card p {
+    font-size: 0.92rem;
+    color: #6b7280;
+    line-height: 1.7;
+  }
+
+  .topic-card .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    margin-top: 0.75rem;
+    font-weight: 600;
+  }
+
+  .tag-tarih { background: #eef2ff; color: #4f46e5; }
+  .tag-ai { background: #fdf2f8; color: #db2777; }
+  .tag-kultur { background: #ecfdf5; color: #059669; }
+  .tag-liderlik { background: #fffbeb; color: #d97706; }
+  .tag-insan { background: #eff6ff; color: #2563eb; }
+  .tag-uretkenlik { background: #faf5ff; color: #7c3aed; }
+
+  /* Quote */
+  .quote-block {
+    border-left: 3px solid #6366f1;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    background: #f5f3ff;
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+    color: #4b5563;
+    font-size: 0.95rem;
+  }
+
+  .quote-block .quote-author {
+    font-style: normal;
+    font-weight: 600;
+    color: #6366f1;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  /* Flow Chart */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 2rem 0;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .flow-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .flow-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #6366f1;
+    border: 3px solid #fafafa;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .flow-connector {
+    width: 2px;
+    height: 40px;
+    background: #e0e7ff;
+  }
+
+  .flow-content {
+    padding-bottom: 1.5rem;
+  }
+
+  .flow-content h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 0.25rem;
+  }
+
+  .flow-content p {
+    font-size: 0.88rem;
+    color: #6b7280;
+  }
+
+  /* Key Insight Boxes */
+  .insight-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin: 2rem 0;
+  }
+
+  .insight-box {
+    background: linear-gradient(135deg, #f5f3ff, #fdf2f8);
+    border: 1px solid #e0e7ff;
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+
+  .insight-box .insight-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .insight-box h4 {
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
+    color: #1a1a2e;
+  }
+
+  .insight-box p {
+    font-size: 0.85rem;
+    color: #6b7280;
+  }
+
+  /* Stat Banner */
+  .stat-banner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    border-radius: 20px;
+    padding: 2rem 2.5rem;
+    margin: 2.5rem 0;
+    color: #fff;
+    flex-wrap: wrap;
+  }
+
+  .stat-number {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .stat-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .stat-source {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    margin-top: 0.5rem;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #9ca3af;
+    font-size: 0.85rem;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .footer strong {
+    color: #6366f1;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">Keynote Yapisi</div>
+  <h1>Yapay Zeka, Tarih<br>ve Kulturel Donusum</h1>
+  <p class="hero-subtitle">Tarihin buyuk donusum anlarindan ilham alarak, yapay zeka caginda liderlik, kultur ve insan odakli bir yol haritasi.</p>
+  <div class="speakers">
+    <div class="speaker-chip">
+      <div class="speaker-avatar bk">BK</div>
+      <div>
+        <div class="speaker-name">Bediz Kilickini</div>
+        <div class="speaker-role">Tarih & Liderlik</div>
+      </div>
+    </div>
+    <div class="speaker-chip">
+      <div class="speaker-avatar sb">SB</div>
+      <div>
+        <div class="speaker-name">Serhat Bicakci</div>
+        <div class="speaker-role">Yapay Zeka & Strateji</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">ASAGI KAYDIR</div>
+</section>
+
+<!-- BOLUM 1: GIRIS -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 01</div>
+    <h2>Giris — Neden Bu Keynote?</h2>
+    <p class="section-lead">Yapay zeka yeni bir sey degil; tarihin yasadigi buyuk donusumlerden birini yeniden yasiyoruz. Bu keynote, yapay zekayi tarihsel perspektifle okuyarak kalici bir anlam cercevesi sunuyor.</p>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>Temel Tez</h3>
+        <p>Atesin, tekerlegin, barutun ve internetin icadi gibi yapay zeka da insanlik tarihindeki kose taslarindan biri. Korkmak normal, ama dunya bunu binlerce kez yasadi — yine yolumuzu bulacagiz.</p>
+        <span class="tag tag-tarih">Tarihsel Perspektif</span>
+      </div>
+      <div class="topic-card">
+        <h3>Iki Disiplinin Bulusmasi</h3>
+        <p>Bediz Kilickini'nin tarih ve liderlik birikimi ile Serhat Bicakci'nin yapay zeka ve teknoloji vizyonu birleserek, AI'yi sadece teknolojiyle degil kulturle anlatan bir cerceve olusturuyor.</p>
+        <span class="tag tag-kultur">Kultur + Teknoloji</span>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "Barutu kullanmayi beceremiyorsan ve bunu aktif bir sekilde yeni bir seye donusturemiyorsan, Fatih gibi Istanbul'u fethedemiyorsun. Digerleriyle beraber surlarin onunde yok olup gidiyorsun."
+      <div class="quote-author">— Bediz Kilickini</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 2: DEGISIMIN HIZI -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 02</div>
+    <h2>Degisimin Hizi — Nalbanttan Yapay Zekaya</h2>
+    <p class="section-lead">Gecmiste donusumler nesiller surerdi. Bugun bir yenilik cikiyor, 1 saat sonra kullanilir hale geliyor. Bu hiz, adapte olma suremizi de kokten degistirdi.</p>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>Nalbant Metaforu</h3>
+        <p>Henry Ford araba cikardiginda nalbantlikta kalanlar yok oldu, ama nalbantligini lastik tamirciliine donusturebilenler kalici oldu. Yapay zeka cagi da tam bu merkezden donuyor.</p>
+        <span class="tag tag-tarih">Tarihsel Analoji</span>
+      </div>
+      <div class="topic-card">
+        <h3>Cambio Hikayesi</h3>
+        <p>90'larda bankadaki Cambio gisesi kaldirildiginda, tum kariyerini tek beceriye baglayan calisan "puf oldu". Bugun ayni risk, tek bir yetkinlige tutunan herkes icin gecerli.</p>
+        <span class="tag tag-liderlik">Uyari Hikayesi</span>
+      </div>
+      <div class="topic-card">
+        <h3>Ivme Artiyor</h3>
+        <p>Bilgisayarin hayatimiza girmesi 10-15 yil surdu. Yapay zekada yeni bir sey cikiyor ve biz 1 saat sonra kullanabilir hale geliyoruz. Zihnimizin bu donusumu yakalama suresi yok.</p>
+        <span class="tag tag-ai">Hiz Gercegi</span>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "Su anda ilkokulda olan cocuklar, dunyada henuz baslamamis %65 meslegin sahibi olacaklar."
+      <div class="quote-author">— Bediz Kilickini</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 3: YAPAY ZEKA NEDIR, NE DEGILDIR? -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 03</div>
+    <h2>Yapay Zeka — Ne Guc, Ne Zayiflik?</h2>
+    <p class="section-lead">Yapay zekanin gercek kapasitesini ve sinirlarini anlamak, onu dogru kullanmanin on kosulu.</p>
+
+    <div class="insight-row">
+      <div class="insight-box">
+        <div class="insight-icon">&#9889;</div>
+        <h4>Guclu Yon</h4>
+        <p>Internetteki tum veriye hakim, gelismis bir dil modeli. Muazzam hizda bilgi harmanlama ve cevap uretme kapasitesi.</p>
+      </div>
+      <div class="insight-box">
+        <div class="insight-icon">&#9888;</div>
+        <h4>Zayif Yon</h4>
+        <p>Fiziksel dunya deneyimi yok. Gercek dunya deneyimi olmayan, 5 yasindaki bir cocuk gibi bile davranamayan bir model. Robotik henuz cok uzak.</p>
+      </div>
+    </div>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>Baglantisalligin Kesfi (2015)</h3>
+        <p>2015'te anlasildi: Noronun ya da atomun tek basina anlami yok — aralarindaki baglantilar zekayi olusturuyor. Bu paradigma degisimi, yapay zekadaki patlamanin temelini atti.</p>
+        <span class="tag tag-ai">Bilimsel Kirilim</span>
+      </div>
+      <div class="topic-card">
+        <h3>Ronesans Paraleli</h3>
+        <p>Ronesans bir gecede cikmadi; koku Omer Hayyam'lara, Ibn Haldun'lara dayaniyor. Yapay zeka da 2015'te "pit" diye cikmadi — onlarca yillik veri toplama, bilgi biriktirme surecinin urunu.</p>
+        <span class="tag tag-tarih">Tarihsel Koken</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 4: FATIH VE LIDERLIK -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 04</div>
+    <h2>Fatih Modeli — Tarihten Liderlik Dersleri</h2>
+    <p class="section-lead">Istanbul'un fethi sadece askeri bir zafer degil, bir kulturel donusum basyapiti. Bugunun liderleri icin cikarilacak derslerle dolu.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-content">
+          <h4>Kendini Yetistirmek</h4>
+          <p>21 yasinda metalurji, geometri, fizik, balistik bilen bir lider. Yapay zekayi ekibine delege etmek yetmez — zihniyetini benimsemek sart.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-content">
+          <h4>Kulturleri Harmanlamak</h4>
+          <p>Pers, Arap ve Roma kulturlerini harmanlayip ozunden vazgecmeden yeni bir sentez yaratti. Bugun de sirketler kendi kulturlerini yapay zekaya adapte etmeli — yikip yeniden kurmak degil.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-content">
+          <h4>Aristokrasiden Burokrasiye</h4>
+          <p>Enderun sistemiyle aristokrasiyi burokrasiye donusturdu. Roma'dan ilham aldi. Surdurulebilir bir sistem kurdu. Bugunun liderleri de yapisal donusumu tasarlamali.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+        </div>
+        <div class="flow-content">
+          <h4>Cesitlilik ve Kapsayicilik</h4>
+          <p>Musluman bir Turk padisahi olarak Rum Patrikhanesi'ni acti. Diversity bugunun modasi degil — 500 yil once de guclu liderlerin araciydi.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "5000 yillik kulturler ayakta kaliyor. Cunku kultur, teknolojiden daha kalici bir guc."
+      <div class="quote-author">— Bediz Kilickini (Cinli Kurmay anekdotu)</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 5: BILGI vs DENEYIM -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 05</div>
+    <h2>Bilgi Coplugu — Bilmek Deneyim Degildir</h2>
+    <p class="section-lead">Yapay zeka her seyi biliyor ve her seye cevap veriyor. Ama bilgi, icsellestirmeden deneyime donusmuyor.</p>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>Sekerli Yiyecek Metaforu</h3>
+        <p>Avci-toplayici atalarimiz meyve agaci buldugunda doysalar da yemeye devam ederdi. Biz de bilgi ve cevaba ayni sekilde baglimliyiz — ama artik bilgi her yerde, deger kaybediyor.</p>
+        <span class="tag tag-insan">Insan Dogasi</span>
+      </div>
+      <div class="topic-card">
+        <h3>Bilmek &rarr; Farkindalik &rarr; Deneyim</h3>
+        <p>GPT'den alinan cevap, icsellestirmeden paylasiliyor. Cirakligini yapmadiginiz bir isin ustaligini yapmaya soyunuyorsunuz. Herkesin usta oldugu ama cirak kimsenin olmadigi bir dunya.</p>
+        <span class="tag tag-ai">Kritik Tehlike</span>
+      </div>
+      <div class="topic-card">
+        <h3>Mandra Filozofu Dersi</h3>
+        <p>"Ucak insanligin basina gelmis en kotu sey — Istanbul'dan Mugla'ya giderken Cunda'ya ugramiyorsun." Hizlanmak, yolculuktaki ic goruyu (know-how) kaybettiriyor.</p>
+        <span class="tag tag-kultur">Kayip Know-How</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 6: KULTUREL DEGISIM & MUSTERI -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 06</div>
+    <h2>Kultur, Musteri ve Kisisellestirme</h2>
+    <p class="section-lead">Yapay zekanin karakteri "Kanadali beyaz yaka" cikti. Peki Turk musterisine, yerel kulture gore mi cevap veriyor?</p>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>AI'in Kulturel Korlugu</h3>
+        <p>Arastirmalar gosteriyor: yapay zekalarin karakteristigi batili, Kanadali bir beyaz yaka. Global sirketler ayni AI'yi Turkiye, Isvicre ve Amerika'da kullaniyor — ama musteri ayni degil.</p>
+        <span class="tag tag-kultur">Lokalizasyon Krizi</span>
+      </div>
+      <div class="topic-card">
+        <h3>Fonksiyonellik Patlamasi</h3>
+        <p>10 yil once cikolata kremasi rafta tekti. Bugun waffle'a uygun, saglikli, findikli... Tuketici artik kisisellesmis urun bekliyor. Sirketler bu modulerligi nasil kuracak?</p>
+        <span class="tag tag-liderlik">Stratejik Soru</span>
+      </div>
+      <div class="topic-card">
+        <h3>Yapay Zeka Bizi Zaten Yonetiyor</h3>
+        <p>Gumus 30 saatte %42 dustumus — AI trade bot'larin aci esigi yok. Sosyal ag algoritmalari mutsuzluk uretiyor. Yapay zeka bizi yok etmeye gerek duymadan coktan yonetmeye basladi.</p>
+        <span class="tag tag-ai">Farkindalik</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 7: DUYGU ve INSAN -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 07</div>
+    <h2>Duygu Yonetilmez, Tuketilir</h2>
+    <p class="section-lead">Yapay zekanin asla yerini alamayacagi alan: Kendine dokunan, duygularina temas eden, insana insanca bakan liderlik.</p>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>"Su An Kork" Deneyi</h3>
+        <p>"Beni seviyorsan lutfen kork." — Yapilamaz. Duygu yonetilmez, davranis yonetilir. Kendi duygusuna temas eden, duygularinin adini dogru koyan liderler iz birakir.</p>
+        <span class="tag tag-insan">Insan Gercegi</span>
+      </div>
+      <div class="topic-card">
+        <h3>Human Touch'in Yukselisi</h3>
+        <p>Kadikoy'deki terzinin "cok konusuyorsun, yiyecek misin yemeyecek misin" samimiyeti... Asiri sistemlesmis dunyada insan insana iliski hic olmadigi kadar degerli.</p>
+        <span class="tag tag-kultur">Deger Kaymasi</span>
+      </div>
+      <div class="topic-card">
+        <h3>Lider Profili Degisiyor</h3>
+        <p>Ataturk, Churchill, Hitler — celik gibi, duygusuz liderler cagi bitti. Bugunun lideri agliyor, siir okuyor, "ben de insanim" diyor. Insan one cikiyor.</p>
+        <span class="tag tag-liderlik">Yeni Liderlik</span>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "Rutinle gidemeyeceksin artik. Ama kendine dokunup, duyguya hitap edebildigin zaman yapay zeka senin yerini asla alamayacak."
+      <div class="quote-author">— Bediz Kilickini</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 8: BECERI SETLERI & ISTIHDAM -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 08</div>
+    <h2>Beceri Setlerinin Donusumu</h2>
+    <p class="section-lead">Yapay zeka isleri yok etmiyor, donusturuyor. Gartner'a gore 2028-2029'da ortadan kalkan islerden cok daha fazlasi ortaya cikacak.</p>
+
+    <div class="insight-row">
+      <div class="insight-box">
+        <div class="insight-icon">&#128200;</div>
+        <h4>Veri Gercegi</h4>
+        <p>AI entegre sirketlerde karlilik artmis, karlilikla beraber istihdam da artmis. Bilgisayar caginda da boyle olmustu.</p>
+      </div>
+      <div class="insight-box">
+        <div class="insight-icon">&#128161;</div>
+        <h4>Yeni Yetkinlikler</h4>
+        <p>Iletisim, geri bildirim, uzlasi, yaratici fikir, stratejik bakis acisi. Artik sistemin carki degil, sistemi zorlayan bir kultur.</p>
+      </div>
+      <div class="insight-box">
+        <div class="insight-icon">&#10067;</div>
+        <h4>Dogru Soru Sormak</h4>
+        <p>Her seyin cevaplanabilidigi bir dunyada, dogru soruyu sormak bilgiden daha degerli. Bilgi ve cevaptan soru ve deneyime gecis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 9: ANTHROPIC RAPORU & URETKENLIK KIRILIMI -->
+<section class="section" style="background: linear-gradient(180deg, #fafafa 0%, #f5f3ff 50%, #fafafa 100%);">
+  <div class="container">
+    <div class="section-number">Bolum 09</div>
+    <h2>Uretkenlik Kirilimi — Zekasindan Cok Uretme Gucu</h2>
+    <p class="section-lead">Yapay zekanin asil gucu "zeki olmasi" degil, uretebilmesi. PC uzerinde yapilan islerin buyuk kismi otomasyon ve yazilimlara devredilebilir. Ama sureci yoneten zihin hala insan.</p>
+
+    <div class="stat-banner">
+      <div class="stat-number">%85</div>
+      <div>
+        <div class="stat-text">Anthropic raporuna gore, PC uzerinde yapilan islerin %85'i yapay zekaya devredilebilir. Otomasyon ve yazilim uretimi artik teknolojik veya butce kisiti degil — herkes icin eriselebilir hale geliyor.</div>
+        <div class="stat-source">Kaynak: Anthropic Raporu</div>
+      </div>
+    </div>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>Zeka Degil, Uretkenlik</h3>
+        <p>Yapay zekanin zekasindan ziyade yazilim uretebilme kapasitesine odaklanmaliyiz. Artik her fikir, her surecin bir yazilimi, otomasyonu olabilir. Bu, isletmelerin onundeki en buyuk kirilim noktasi.</p>
+        <span class="tag tag-uretkenlik">Paradigma Degisimi</span>
+      </div>
+      <div class="topic-card">
+        <h3>Kisitlarin Ortadan Kalkmasi</h3>
+        <p>Bircok dert artik teknolojik kisitlara ya da butce kisitlarina takilmayacak. AI ile istedigimiz yazilimlari uretebilir hale gelecegiz. Bu, tarihte az gorulmus bir demokratiklestirme dalgasi.</p>
+        <span class="tag tag-ai">Tarihi Kirilim</span>
+      </div>
+      <div class="topic-card">
+        <h3>Insanin Zihinsel Becerileriyle Yonetmesi</h3>
+        <p>Isi yapay zekaya devretmek kolay. Zor olan, sureci zihinsel becerilerle yonetmek. Neyi, neden, nasil uretecegini bilen insan kritik kaynak olmaya devam edecek. Deger buradan dogacak.</p>
+        <span class="tag tag-insan">Insan Faktoru</span>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "Istedigimizi uretebilir hale gelmek, ne uretecegini daha iyi bilen insanlara ihtiyac doguracak."
+      <div class="quote-author">— Serhat Bicakci</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 10: IS TANIMLARI DEGISIYOR -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 10</div>
+    <h2>Is Tanimlari Degisiyor — Uygulamacidan Sistem Tasarimcisina</h2>
+    <p class="section-lead">Herkes her seyi uretebiliyorsa, fark yaratan "ne uretecegini bilen" olacak. Is tanimlari kokunden degisiyor.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-content">
+          <h4>Eskisi: Uygulayan Insan</h4>
+          <p>Gelen talimati alan, sureci isleyen, raporu hazirlayan, ciktiyi ureten calisan. Operasyonel beceri = deger.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-content">
+          <h4>Gecis: AI ile Hizlanan Uygulayici</h4>
+          <p>Ayni isi yapay zekayla 10 kat hizli yapan ama hala "ne yapilacagini" baskasinin soyledigi calisan. Hiz artar, ama stratejik deger artmaz.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+        </div>
+        <div class="flow-content">
+          <h4>Yenisi: Sistem Tasarlayan Insan</h4>
+          <p>Ne uretecegini, neden uretecegini ve nasil bir sistem kurulacagini tasarlayan insan. Ise alinacak profil: uygulayan degil, dusunup tasarlayan. Uretim AI'da, vizyon insanda.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-row">
+      <div class="insight-box">
+        <div class="insight-icon">&#127959;</div>
+        <h4>Organizasyonel Yansimasi</h4>
+        <p>Sirketler artik "su isi yapacak adam" degil, "bu sistemi tasarlayacak insan" arayacak. Ise alim kriterleri, performans olcumleri, kariyer yollari — hepsi degisecek.</p>
+      </div>
+      <div class="insight-box">
+        <div class="insight-icon">&#127891;</div>
+        <h4>Egitim Yansimasi</h4>
+        <p>Cirakligin yerini "sistem dusuncesi" egitimi alacak. Uygulama becerisi tabandan gelecek (AI ile), ama tasarim becerisi insanin gelisim alani olacak.</p>
+      </div>
+      <div class="insight-box">
+        <div class="insight-icon">&#128640;</div>
+        <h4>Girisimcilik Yansimasi</h4>
+        <p>Butce ve teknik kisit kalktikca, tek kisilik girisimler bile karmasik yazilimlar uretebilecek. Engel artik fikir ve tasarim. "Ne yapacagini bilmek" en buyuk sermaye.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 11: YONETICILERE UYARILAR -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 11</div>
+    <h2>Yoneticilere Kritik Uyarilar</h2>
+    <p class="section-lead">Yapay zeka bir teknolojik yatirim degil, bir vizyon ve bakis acisi degisimi. Bunu dogru yoneten kazanir, yanlis yoneten kaybeder.</p>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>"5 Dakikada Yapilir" Tuzagi</h3>
+        <p>Hizlanma baskisi kaliteyi dusuruyor. Hollanda'daki hakim: "Biz artik hakim degiliz, editoruz — avukatlarin AI yazdirdigi dokumanlarin gercek mi sahte mi oldugunu kontrol ediyoruz."</p>
+        <span class="tag tag-liderlik">Kalite Riski</span>
+      </div>
+      <div class="topic-card">
+        <h3>Know-How Kaybi</h3>
+        <p>Insana hizmet verdiginiz her yerde insani devre disi biraktikca know-how'i kaybedersiniz. Know-how'i kaybettikce musteriniz olan insani kaybedersiniz.</p>
+        <span class="tag tag-kultur">Denge Gerekli</span>
+      </div>
+      <div class="topic-card">
+        <h3>300 Oneri Sorunu</h3>
+        <p>Eskiden 3 oneri alan yonetici, artik GPT destekli 300 oneri aliyor. Suslu ama alti bos fikirler cogaldi. Yoneticiler "dogru karar verici" haline donusmeli.</p>
+        <span class="tag tag-ai">Karar Kalitesi</span>
+      </div>
+      <div class="topic-card">
+        <h3>Hayal Kurma Zamani</h3>
+        <p>Ust yoneticiler operasyonlarini AI'ya devredip "bosluga bakip hayal kurma" zamani yaratmali. Vizyon uretmek icin kafa rahatligi sart. 98/100 yoneticinin kafasi "bulasik teli gibi."</p>
+        <span class="tag tag-liderlik">Vizyon Ihtiyaci</span>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "Yapay zeka bir arac — sirketine aldigin bir server gibi. Mesele, bunun nasil kullanildiginin kulturunu tutturmak."
+      <div class="quote-author">— Bediz Kilickini</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 12: KAPANIS -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 12</div>
+    <h2>Kapanis — Yol Haritasi</h2>
+    <p class="section-lead">Bu keynote, Turkiye is dunyasina yapay zekayi tarihsel perspektiften sunuyor. Basarili ve basarisiz tarihsel orneklerle harmanlayarak, kulturel donusumun yolunu ciziyor.</p>
+
+    <div class="insight-row">
+      <div class="insight-box">
+        <div class="insight-icon">&#127919;</div>
+        <h4>Kulturu Gozden Gecir</h4>
+        <p>Kepengi indirip yeniden acma degil — mevcut kulturu yarina hazir hale getirmek.</p>
+      </div>
+      <div class="insight-box">
+        <div class="insight-icon">&#129504;</div>
+        <h4>Zihniyeti Benimse</h4>
+        <p>Teknolojiyi ogrenmek kolay. Zor olan, onunla ne yapacagina dair bir hayal ve vizyon uretmek.</p>
+      </div>
+      <div class="insight-box">
+        <div class="insight-icon">&#129309;</div>
+        <h4>Insani Merkeze Koy</h4>
+        <p>Yapay zekasiz bir dunya yok. Ama insansiz bir is dunyasi da surdurulebilir degil. Denge sart.</p>
+      </div>
+    </div>
+
+    <div class="insight-row">
+      <div class="insight-box">
+        <div class="insight-icon">&#9881;</div>
+        <h4>Uretkenlige Odaklan</h4>
+        <p>AI'in zekasindan cok uretme gucune odaklan. Kisitlar kalkiyor — onemli olan ne uretecegini bilmek.</p>
+      </div>
+      <div class="insight-box">
+        <div class="insight-icon">&#128736;</div>
+        <h4>Sistem Tasarimcilari Yetistir</h4>
+        <p>Uygulamacilardan sistem tasarimcilarina gecis. Is tanimlarini, ise alimlari, kariyer yollarini yeniden kurgula.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <strong>Yapay Zeka, Tarih ve Kulturel Donusum</strong> — Bediz Kilickini & Serhat Bicakci AI Keynote
+</footer>
+
+</body>
+</html>
