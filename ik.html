@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI & IK Keynote — Bediz Kılıçkını & Serhat Bıçakçı</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #fafafa;
+    color: #1a1a2e;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    background: linear-gradient(180deg, #ffffff 0%, #f0f0ff 50%, #fafafa 100%);
+  }
+
+  .hero-label {
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #6366f1;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #1a1a2e 0%, #6366f1 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+    color: #6b7280;
+    max-width: 600px;
+    margin-bottom: 2rem;
+  }
+
+  .speakers {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .speaker-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 100px;
+    padding: 0.5rem 1.2rem 0.5rem 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .speaker-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: #fff;
+  }
+
+  .speaker-avatar.bk { background: linear-gradient(135deg, #818cf8, #6366f1); }
+  .speaker-avatar.sb { background: linear-gradient(135deg, #f472b6, #ec4899); }
+
+  .speaker-name { font-weight: 500; font-size: 0.9rem; color: #1a1a2e; }
+  .speaker-role { font-size: 0.75rem; color: #9ca3af; }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    animation: bounce 2s infinite;
+    color: #c4c4c4;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* Container */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Section */
+  .section {
+    padding: 5rem 0;
+    position: relative;
+  }
+
+  .section + .section {
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .section-number {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #6366f1;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .section h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    color: #1a1a2e;
+  }
+
+  .section-lead {
+    font-size: 1.05rem;
+    color: #6b7280;
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+  }
+
+  /* Topic Card */
+  .topic-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .topic-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: all 0.3s ease;
+    cursor: default;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .topic-card:hover {
+    border-color: #c7d2fe;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.08);
+  }
+
+  .topic-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #1a1a2e;
+  }
+
+  .topic-card p {
+    font-size: 0.92rem;
+    color: #6b7280;
+    line-height: 1.7;
+  }
+
+  .topic-card .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    margin-top: 0.75rem;
+    font-weight: 600;
+  }
+
+  .tag-tarih { background: #eef2ff; color: #4f46e5; }
+  .tag-ai { background: #fdf2f8; color: #db2777; }
+  .tag-kultur { background: #ecfdf5; color: #059669; }
+  .tag-liderlik { background: #fffbeb; color: #d97706; }
+  .tag-insan { background: #eff6ff; color: #2563eb; }
+  .tag-uretkenlik { background: #faf5ff; color: #7c3aed; }
+  .tag-ik { background: #fef3c7; color: #b45309; }
+  .tag-yetenek { background: #e0f2fe; color: #0369a1; }
+  .tag-etik { background: #fce7f3; color: #be185d; }
+
+  /* Quote */
+  .quote-block {
+    border-left: 3px solid #6366f1;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    background: #f5f3ff;
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+    color: #4b5563;
+    font-size: 0.95rem;
+  }
+
+  .quote-block .quote-author {
+    font-style: normal;
+    font-weight: 600;
+    color: #6366f1;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  /* Flow Chart */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 2rem 0;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .flow-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .flow-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #6366f1;
+    border: 3px solid #fafafa;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .flow-connector {
+    width: 2px;
+    height: 40px;
+    background: #e0e7ff;
+  }
+
+  .flow-content {
+    padding-bottom: 1.5rem;
+  }
+
+  .flow-content h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 0.25rem;
+  }
+
+  .flow-content p {
+    font-size: 0.88rem;
+    color: #6b7280;
+  }
+
+  /* Key Insight Boxes */
+  .insight-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin: 2rem 0;
+  }
+
+  .insight-box {
+    background: linear-gradient(135deg, #f5f3ff, #fdf2f8);
+    border: 1px solid #e0e7ff;
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+
+  .insight-box .insight-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .insight-box h4 {
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
+    color: #1a1a2e;
+  }
+
+  .insight-box p {
+    font-size: 0.85rem;
+    color: #6b7280;
+  }
+
+  /* Stat Banner */
+  .stat-banner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    border-radius: 20px;
+    padding: 2rem 2.5rem;
+    margin: 2.5rem 0;
+    color: #fff;
+    flex-wrap: wrap;
+  }
+
+  .stat-number {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .stat-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .stat-source {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    margin-top: 0.5rem;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #9ca3af;
+    font-size: 0.85rem;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .footer strong {
+    color: #6366f1;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">IK Profesyonelleri Icin AI Keynote</div>
+  <h1>Yapay Zeka Caginda<br>Insan Kaynaklari</h1>
+  <p class="hero-subtitle">Tarihin buyuk donusum anlarindan ilham alarak, yapay zeka caginda IK'nin degisen rolu, yetenek yonetimi ve insan odakli donusum yol haritasi.</p>
+  <div class="speakers">
+    <div class="speaker-chip">
+      <div class="speaker-avatar bk">BK</div>
+      <div>
+        <div class="speaker-name">Bediz Kilickini</div>
+        <div class="speaker-role">Tarih & Liderlik</div>
+      </div>
+    </div>
+    <div class="speaker-chip">
+      <div class="speaker-avatar sb">SB</div>
+      <div>
+        <div class="speaker-name">Serhat Bicakci</div>
+        <div class="speaker-role">Yapay Zeka & Strateji</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">ASAGI KAYDIR</div>
+</section>
+
+<!-- BOLUM 1: GIRIS -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 01</div>
+    <h2>Giris — Neden Bu Keynote?</h2>
+    <p class="section-lead">Yapay zeka yeni bir sey degil; tarihin yasadigi buyuk donusumlerden birini yeniden yasiyoruz. Bu keynote, yapay zekayi tarihsel perspektifle okuyarak IK profesyonelleri icin kalici bir anlam cercevesi sunuyor.</p>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>Temel Tez</h3>
+        <p>Atesin, tekerlegin, barutun ve internetin icadi gibi yapay zeka da insanlik tarihindeki kose taslarindan biri. Korkmak normal, ama dunya bunu binlerce kez yasadi — yine yolumuzu bulacagiz.</p>
+        <span class="tag tag-tarih">Tarihsel Perspektif</span>
+      </div>
+      <div class="topic-card">
+        <h3>Iki Disiplinin Bulusmasi</h3>
+        <p>Bediz Kilickini'nin tarih ve liderlik birikimi ile Serhat Bicakci'nin yapay zeka ve teknoloji vizyonu birleserek, AI'yi sadece teknolojiyle degil kulturle anlatan bir cerceve olusturuyor.</p>
+        <span class="tag tag-kultur">Kultur + Teknoloji</span>
+      </div>
+      <div class="topic-card">
+        <h3>IK Neden Merkezde?</h3>
+        <p>Her teknolojik donusumun merkezinde "insan" var. IK, bu donusumun hem tasiyicisi hem de koruyucusu. Yapay zeka caginda IK, sirketin en stratejik fonksiyonu haline geliyor — cunku mesele artik teknoloji degil, insanlarin bu teknolojiyle nasil calismasi gerektigi.</p>
+        <span class="tag tag-ik">IK'nin Yeni Rolu</span>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "Barutu kullanmayi beceremiyorsan ve bunu aktif bir sekilde yeni bir seye donusturemiyorsan, Fatih gibi Istanbul'u fethedemiyorsun. Digerleriyle beraber surlarin onunde yok olup gidiyorsun."
+      <div class="quote-author">— Bediz Kilickini</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 2: DEGISIMIN HIZI -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 02</div>
+    <h2>Degisimin Hizi — Nalbanttan Yapay Zekaya</h2>
+    <p class="section-lead">Gecmiste donusumler nesiller surerdi. Bugun bir yenilik cikiyor, 1 saat sonra kullanilir hale geliyor. IK'nin adaptasyon hizi, sirketin adaptasyon hizini belirliyor.</p>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>Nalbant Metaforu</h3>
+        <p>Henry Ford araba cikardiginda nalbantlikta kalanlar yok oldu, ama nalbantligini lastik tamirciliine donusturebilenler kalici oldu. IK'nin gorevi: organizasyondaki "nalbantlari" tespit edip donusumlerini tasarlamak.</p>
+        <span class="tag tag-tarih">Tarihsel Analoji</span>
+      </div>
+      <div class="topic-card">
+        <h3>Cambio Hikayesi — IK Perspektifi</h3>
+        <p>90'larda bankadaki Cambio gisesi kaldirildiginda, tum kariyerini tek beceriye baglayan calisan "puf oldu". IK olarak kendimize sormaliyiz: Organizasyonumuzda kac kisi tek bir yetkinlige tutunuyor? Bu insanlari simdi donusturemezsek, yarin cok gec olacak.</p>
+        <span class="tag tag-ik">IK Sorumlulugu</span>
+      </div>
+      <div class="topic-card">
+        <h3>Ivme Artiyor</h3>
+        <p>Bilgisayarin hayatimiza girmesi 10-15 yil surdu. Yapay zekada yeni bir sey cikiyor ve biz 1 saat sonra kullanabilir hale geliyoruz. IK politikalari, is tanimlari ve yetkinlik cerceveleri bu hiza ayak uyduramiyorsa, organizasyon geride kaliyor.</p>
+        <span class="tag tag-ai">Hiz Gercegi</span>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "Su anda ilkokulda olan cocuklar, dunyada henuz baslamamis %65 meslegin sahibi olacaklar."
+      <div class="quote-author">— Bediz Kilickini</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 3: YAPAY ZEKA NEDIR, NE DEGILDIR? -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 03</div>
+    <h2>Yapay Zeka — Ne Guc, Ne Zayiflik?</h2>
+    <p class="section-lead">Yapay zekanin gercek kapasitesini ve sinirlarini anlamak, IK'nin dogru stratejiyi belirlemesinin on kosulu.</p>
+
+    <div class="insight-row">
+      <div class="insight-box">
+        <div class="insight-icon">&#9889;</div>
+        <h4>Guclu Yon</h4>
+        <p>Internetteki tum veriye hakim, gelismis bir dil modeli. Muazzam hizda bilgi harmanlama ve cevap uretme kapasitesi.</p>
+      </div>
+      <div class="insight-box">
+        <div class="insight-icon">&#9888;</div>
+        <h4>Zayif Yon</h4>
+        <p>Fiziksel dunya deneyimi yok. Gercek dunya deneyimi olmayan, 5 yasindaki bir cocuk gibi bile davranamayan bir model. Empati ve sezgi insana ait.</p>
+      </div>
+    </div>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>IK Icin Ne Anlama Geliyor?</h3>
+        <p>AI, CV tarama, bordro, raporlama gibi operasyonel isleri muhtesem yapiyor. Ama bir calisanin motivasyonunu anlamak, takim dinamiklerini okumak, kulturel uyumu hissetmek — bunlar hala tamamen insana ait. IK'nin degeri tam burada.</p>
+        <span class="tag tag-ik">IK'nin Fark Noktasi</span>
+      </div>
+      <div class="topic-card">
+        <h3>Baglantisalligin Kesfi (2015)</h3>
+        <p>2015'te anlasildi: Noronun ya da atomun tek basina anlami yok — aralarindaki baglantilar zekayi olusturuyor. IK icin de ayni: tek tek calisanlar degil, aralarindaki baglantilar, iliskiler ve kultur bir organizasyonu guclu yapar.</p>
+        <span class="tag tag-ai">Bilimsel Kirilim</span>
+      </div>
+      <div class="topic-card">
+        <h3>Ronesans Paraleli</h3>
+        <p>Ronesans bir gecede cikmadi; koku Omer Hayyam'lara, Ibn Haldun'lara dayaniyor. Yapay zeka da 2015'te "pit" diye cikmadi — onlarca yillik veri toplama, bilgi biriktirme surecinin urunu. Ayni sekilde IK donusumu de bir gecede olmayacak, ama bugunden baslamak sart.</p>
+        <span class="tag tag-tarih">Tarihsel Koken</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 4: FATIH VE LIDERLIK -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 04</div>
+    <h2>Fatih Modeli — Tarihten IK Dersleri</h2>
+    <p class="section-lead">Istanbul'un fethi sadece askeri bir zafer degil, bir kulturel donusum ve insan yonetimi basyapiti. IK'cilar icin cikarilacak derslerle dolu.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-content">
+          <h4>Kendini Yetistirmek</h4>
+          <p>21 yasinda metalurji, geometri, fizik, balistik bilen bir lider. IK profesyoneli olarak yapay zekayi ekibine delege etmek yetmez — zihniyetini benimsemek, araclarini denemek ve organizasyona yol gostermek sart.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-content">
+          <h4>Enderun: Tarihin Ilk Yetenek Yonetimi Sistemi</h4>
+          <p>Fatih'in Enderun sistemi, tarihte bilinen ilk sistematik yetenek yonetimi programi. Koken, sinif ve statuden bagimsiz, tamamen yetkinlik bazli secim ve yetistirme. Bugun IK'nin yapmasi gereken de tam bu: unvana degil, potansiyele bakmak.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-content">
+          <h4>Kulturleri Harmanlamak</h4>
+          <p>Pers, Arap ve Roma kulturlerini harmanlayip ozunden vazgecmeden yeni bir sentez yaratti. IK'nin gorevi de bu: yapay zekayi sirket kulturune entegre etmek — yikip yeniden kurmak degil, harmanlayarak donusturmek.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+        </div>
+        <div class="flow-content">
+          <h4>Cesitlilik ve Kapsayicilik</h4>
+          <p>Musluman bir Turk padisahi olarak Rum Patrikhanesi'ni acti. Diversity bugunun modasi degil — 500 yil once de guclu liderlerin araciydi. IK, cesitliligi sadece bir politika degil, stratejik bir guc olarak konumlandirmali.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "5000 yillik kulturler ayakta kaliyor. Cunku kultur, teknolojiden daha kalici bir guc."
+      <div class="quote-author">— Bediz Kilickini (Cinli Kurmay anekdotu)</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 5: BILGI vs DENEYIM -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 05</div>
+    <h2>Bilgi Coplugu — IK'da Bilgi vs Deneyim Krizi</h2>
+    <p class="section-lead">Yapay zeka her seyi biliyor ve her seye cevap veriyor. Ama IK'da gercek deger, bilgide degil deneyimde ve sezgide. Bir adayin CV'sini AI okuyabilir, ama o adayin kulturel uyumunu "hissedebilir" mi?</p>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>CV Taramadan Otesine Gecmek</h3>
+        <p>AI, 10.000 CV'yi 10 saniyede tarayabilir. Ama 10 yillik IK deneyimiyle gorustugu adayin goz temasinda, beden dilinde, hikayesindeki tutarsizlikta bir seyler yakalayan profesyonelin yerini alamaz. IK'nin know-how'i tam buradadir.</p>
+        <span class="tag tag-ik">IK Know-How</span>
+      </div>
+      <div class="topic-card">
+        <h3>Bilmek &rarr; Farkindalik &rarr; Deneyim</h3>
+        <p>GPT'den alinan cevap, icsellestirmeden paylasiliyor. Cirakligini yapmadiginiz bir isin ustaligini yapmaya soyunuyorsunuz. IK'da da ayni risk: AI raporlarini kopyala-yapistir yapan degil, o verilerin arkasindaki insani hikayeyi okuyan IK'ci fark yaratir.</p>
+        <span class="tag tag-ai">Kritik Tehlike</span>
+      </div>
+      <div class="topic-card">
+        <h3>Mandra Filozofu Dersi</h3>
+        <p>"Ucak insanligin basina gelmis en kotu sey — Istanbul'dan Mugla'ya giderken Cunda'ya ugramiyorsun." IK sureclerini hizlandirmak iyi, ama insani tanima, anlama ve gelistirme yolculugundaki "Cunda duraklarini" kaybetmemeliyiz.</p>
+        <span class="tag tag-kultur">Kayip Know-How</span>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "Sekerli yiyecek metaforu: Avci-toplayici atalarimiz meyve agaci buldugunda doysalar da yemeye devam ederdi. Biz de bilgiye ayni sekilde baglimliyiz — ama artik bilgi her yerde, deger kaybediyor. IK'nin degeri bilgiyi aktarmakta degil, deneyimi ve kulturu aktarmaktadir."
+      <div class="quote-author">— Bediz Kilickini</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 6: ISE ALIM DONUSUMU -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 06</div>
+    <h2>Ise Alimin Kokten Degisimi</h2>
+    <p class="section-lead">Yapay zeka caginda "dogru insani bulmak" tamamen yeniden tanimlaniyor. Yetkinlikler, roller ve adayda aranacak ozellikler degisiyor.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-content">
+          <h4>Eskisi: Deneyim Yillarina Bakmak</h4>
+          <p>"10 yil X sektorunde tecrube" arayan ilanlar. Adayin gecmiste ne yaptigina odaklanan, statik bir degerlendirme. Referans mektubu ve diploma agirlikli secim.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-content">
+          <h4>Gecis: AI Destekli Tarama</h4>
+          <p>AI ile CV tarama, beceri eslestirme, on filtreleme. Hiz artiyor ama kriterler hala eski paradigmada. "Dogru anahtar kelimeyi yazan" aday one cikiyor, gercek potansiyel gozden kacabiliyor.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+        </div>
+        <div class="flow-content">
+          <h4>Yenisi: Potansiyel ve Uyum Odakli Secim</h4>
+          <p>Adayin "ne bildiginden" cok "nasil ogrendigi" ve "nasil dusundugu" onemli. Teknik beceri AI ile hizla kazandiriliyor — ogrenme cevikligi, kulturel uyum, sistem dusuncesi ve duygusal zeka kalici fark yaratiyor.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>Is Ilanlari Yeniden Yazilmali</h3>
+        <p>"5 yil tecrube, X sertifika" yerine "karmasik problemleri yapilandirabilen, AI araclarini ogrenme istegi olan, belirsizlikte karar verebilen" gibi yetkinlikler. Is tanimlari artik statik degil, dinamik olmali.</p>
+        <span class="tag tag-ik">Aksiyon</span>
+      </div>
+      <div class="topic-card">
+        <h3>Mulakat Sorulari Degismeli</h3>
+        <p>"En buyuk basariniz neydi?" yerine "Hic bilmediginiz bir alanda nasil ilerleme kaydettiginizin hikayesini anlatir misiniz?" veya "AI araclariyla nasil calisiyor, ne deneyimlediniz?" Ogrenme kapasitesini olcen sorular kritik.</p>
+        <span class="tag tag-yetenek">Yeni Degerlendirme</span>
+      </div>
+      <div class="topic-card">
+        <h3>Etik Sinirlar</h3>
+        <p>AI ile ise alimda bias (onyargi) riski buyuk. Amazon'un AI ise alim aracinin kadinlari eledigi ornegi hala taze. IK'nin gorevi: AI'yi kullanirken adalet ve etik sinirlari korumak, algoritmik onyargilari denetlemek.</p>
+        <span class="tag tag-etik">Etik Sorumluluk</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 7: DUYGU ve INSAN -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 07</div>
+    <h2>Duygu Yonetilmez, Tuketilir — IK'nin En Buyuk Kozu</h2>
+    <p class="section-lead">Yapay zekanin asla yerini alamayacagi alan: Kendine dokunan, duygularina temas eden, insana insanca bakan IK liderigi. Calisan deneyiminin kalbi burada atiyor.</p>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>"Su An Kork" Deneyi</h3>
+        <p>"Beni seviyorsan lutfen kork." — Yapilamaz. Duygu yonetilmez, davranis yonetilir. IK olarak calisanlarin duygularini "yonetmeye" calismak yerine, duygularini ifade edebilecekleri guvenlikleri alan yaratmak asil gorevimiz.</p>
+        <span class="tag tag-insan">Insan Gercegi</span>
+      </div>
+      <div class="topic-card">
+        <h3>Calisan Deneyimi = Insan Dokunusu</h3>
+        <p>Kadikoy'deki terzinin "cok konusuyorsun, yiyecek misin yemeyecek misin" samimiyeti... Asiri sistemlesmis IK sureclerinde insan insana iliski hic olmadigi kadar degerli. Onboarding'de bir "hosgeldin" mesaji degil, bir insanin gozunun icine bakip "seni bekliyorduk" demesi.</p>
+        <span class="tag tag-kultur">Calisan Deneyimi</span>
+      </div>
+      <div class="topic-card">
+        <h3>IK Lider Profili Degisiyor</h3>
+        <p>Sureclerle, politikalarla, formlarla yoneten IK cagi bitiyor. Bugunun IK'si empatiyle dinleyen, cesaretle konusan, veriyle karar veren ama sezgiyle insani okuyan bir profil. "Ben de insanim" diyebilen IK'ci.</p>
+        <span class="tag tag-liderlik">Yeni IK Liderligi</span>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "Rutinle gidemeyeceksin artik. Ama kendine dokunup, duyguya hitap edebildigin zaman yapay zeka senin yerini asla alamayacak."
+      <div class="quote-author">— Bediz Kilickini</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 8: BECERI SETLERI & ISTIHDAM -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 08</div>
+    <h2>Beceri Setlerinin Donusumu — IK'nin Yol Haritasi</h2>
+    <p class="section-lead">Yapay zeka isleri yok etmiyor, donusturuyor. Gartner'a gore 2028-2029'da ortadan kalkan islerden cok daha fazlasi ortaya cikacak. IK bu donusumu tasarlamakla yukumlu.</p>
+
+    <div class="stat-banner">
+      <div class="stat-number">%65</div>
+      <div>
+        <div class="stat-text">Su anda ilkokulda olan cocuklar, henuz icat edilmemis mesleklerin %65'inde calisacak. IK'nin gorevi: bugunun yetkinlik cercevelerini yarina hazirlamak, surekli ogrenme kulturunu insa etmek.</div>
+        <div class="stat-source">Kaynak: World Economic Forum</div>
+      </div>
+    </div>
+
+    <div class="insight-row">
+      <div class="insight-box">
+        <div class="insight-icon">&#128200;</div>
+        <h4>Veri Gercegi</h4>
+        <p>AI entegre sirketlerde karlilik artmis, karlilikla beraber istihdam da artmis. IK bunu "isler yok olacak" panigiyle degil, "yeni roller dogacak" firsatiyla cercevelemeli.</p>
+      </div>
+      <div class="insight-box">
+        <div class="insight-icon">&#128161;</div>
+        <h4>Yeni Yetkinlik Cercevesi</h4>
+        <p>Iletisim, geri bildirim, uzlasi, yaratici fikir, stratejik bakis acisi, AI okur-yazarligi. IK yetkinlik cercevelerini bu eksende yeniden yazmali.</p>
+      </div>
+      <div class="insight-box">
+        <div class="insight-icon">&#10067;</div>
+        <h4>Dogru Soru Sormak</h4>
+        <p>Her seyin cevaplanabilidigi bir dunyada, dogru soruyu sormak bilgiden daha degerli. IK egitimlerinde "cevap bulmak" degil "soru sormak" ogretilmeli.</p>
+      </div>
+    </div>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>IK'nin Yetkinlik Haritasi Nasil Degismeli?</h3>
+        <p>Teknik beceriler hizla eskiyor, 2-3 yilda gecerliligi dusuyor. Kalici yetkinlikler: ogrenme cevikligi, isbirligi, duygusal zeka, sistem dusuncesi, etik farkindalik. IK, performans degerlendirme kriterlerini bu yonlu revize etmeli.</p>
+        <span class="tag tag-ik">Yetkinlik Revizyonu</span>
+      </div>
+      <div class="topic-card">
+        <h3>Surekli Ogrenme Kulturu</h3>
+        <p>Yilda bir kez egitim katalogu gondermek yetmiyor. Her calisanin kendi ogrenme yolculugunu tasarlayabilecegi, AI destekli, kisiye ozel gelisim planlari. IK'nin rolu: platforma degil, kulture yatirim yapmak.</p>
+        <span class="tag tag-yetenek">L&D Donusumu</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 9: KULTUREL DEGISIM & IK -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 09</div>
+    <h2>Kultur, Musteri ve Kisisellestirme — IK Perspektifi</h2>
+    <p class="section-lead">Yapay zekanin karakteri "Kanadali beyaz yaka" cikti. Peki IK surecleri de ayni tek tip yaklasimla mi calismali? Calisanlarimiz da musterilerimiz kadar cesitli.</p>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>AI'in Kulturel Korlugu & IK Surecleri</h3>
+        <p>AI'nin karakteristigi batili, Kanadali bir beyaz yaka. Ayni AI aracini Turkiye'deki fabrika calisani icin de, merkez ofisteki yonetici icin de kullaniyorsunuz — ama ihtiyaclari, beklentileri, kulturel kodlari farkli. IK, AI araclarini kullanirken kulturel lokalizasyon yapmali.</p>
+        <span class="tag tag-kultur">Lokalizasyon Krizi</span>
+      </div>
+      <div class="topic-card">
+        <h3>Calisan Deneyiminde Kisisellestirme</h3>
+        <p>10 yil once cikolata kremasi rafta tekti. Bugun waffle'a uygun, saglikli, findikli... Calisanlar da ayni beklentide: tek tip yan hak, tek tip kariyer yolu, tek tip egitim degil — kisisellesmis calisan deneyimi. IK bu modulerligi nasil kuracak?</p>
+        <span class="tag tag-ik">Calisan Beklentisi</span>
+      </div>
+      <div class="topic-card">
+        <h3>AI Chatbot vs IK Insani</h3>
+        <p>Calisan sikayet edecek, bir soru soracak, zor bir donemden geciyordur — karsisina chatbot mu cikmali? IK'da AI kullanimi: rutin sorgular icin chatbot, kritik anlar icin insan. Bu dengeyi kurmak IK'nin stratejik tercihidir.</p>
+        <span class="tag tag-insan">Denge Noktasi</span>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "Yapay zeka bizi yok etmeye gerek duymadan coktan yonetmeye basladi. Gumus 30 saatte %42 dustumus — AI trade bot'larin aci esigi yok. IK olarak sormaliyiz: AI araclarimiz calisanlarimizi yonetiyor mu, yoksa destekliyor mu?"
+      <div class="quote-author">— Serhat Bicakci</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 10: URETKENLIK KIRILIMI -->
+<section class="section" style="background: linear-gradient(180deg, #fafafa 0%, #f5f3ff 50%, #fafafa 100%);">
+  <div class="container">
+    <div class="section-number">Bolum 10</div>
+    <h2>Uretkenlik Kirilimi — IK Operasyonlarinda Devrim</h2>
+    <p class="section-lead">Yapay zekanin asil gucu "zeki olmasi" degil, uretebilmesi. IK operasyonlarinin buyuk kismi otomasyon ve AI ile hizlandirilabilir — ama stratejiyi belirleyen zihin hala IK profesyoneli.</p>
+
+    <div class="stat-banner">
+      <div class="stat-number">%85</div>
+      <div>
+        <div class="stat-text">Anthropic raporuna gore, PC uzerinde yapilan islerin %85'i yapay zekaya devredilebilir. IK icin bu oran: bordro, raporlama, CV tarama, politika dokumanlarini hazirlama, egitim icerik uretimi... Asil soru: Bu zamani ne icin kullanacagiz?</div>
+        <div class="stat-source">Kaynak: Anthropic Raporu</div>
+      </div>
+    </div>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>IK'da AI ile Kazanilan Zaman</h3>
+        <p>Bordro hesaplama, izin takibi, performans formlari, egitim raporlari, ise alim sureclerinin on taramasi... Bunlarin hepsi AI ile otomatize edilebilir. IK'ci bu zamani ne icin kullanmali? Calisanlarla bire bir oturmak, kulturel donusumu tasarlamak, liderlik gelisimini yonlendirmek.</p>
+        <span class="tag tag-uretkenlik">Zaman Kazanimi</span>
+      </div>
+      <div class="topic-card">
+        <h3>Kisitlarin Ortadan Kalkmasi</h3>
+        <p>Kucuk IK ekipleri bile artik buyuk sirketlerin yapabildiklerini yapabilir. AI ile anket analizi, calisan deneyimi haritalama, yetkinlik gap analizi, egitim icerik uretimi... Butce ve kadro kisiti IK'yi sinirlamaktan cikiyor.</p>
+        <span class="tag tag-ai">Demokratiklestirme</span>
+      </div>
+      <div class="topic-card">
+        <h3>IK Analytics'in Yukselisi</h3>
+        <p>Devamlilik oranlari, performans trendleri, egitim etkisi, kultur puanlari... AI ile veri analizi IK'nin "his bazli" kararlardan "veri destekli" kararlara gecisini hizlandiriyor. Ama veriyi yorumlayan ve karar veren hala insan.</p>
+        <span class="tag tag-ik">People Analytics</span>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "Istedigimizi uretebilir hale gelmek, ne uretecegini daha iyi bilen insanlara ihtiyac doguracak. IK icin bu, operasyondan stratejiye gecis demek."
+      <div class="quote-author">— Serhat Bicakci</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 11: IS TANIMLARI DEGISIYOR -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 11</div>
+    <h2>Is Tanimlari Degisiyor — IK Bunu Nasil Yonetecek?</h2>
+    <p class="section-lead">Herkes her seyi uretebiliyorsa, fark yaratan "ne uretecegini bilen" olacak. IK, tum organizasyonun is tanimlarini, performans kriterlerini ve kariyer yollarini yeniden tasarlamak zorunda.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-content">
+          <h4>Eskisi: Uygulayan Insan</h4>
+          <p>Gelen talimati alan, sureci isleyen, raporu hazirlayan, ciktiyi ureten calisan. IK bu profili ariyordu: deneyimli, hizli, hatasiz uygulayici.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-content">
+          <h4>Gecis: AI ile Hizlanan Uygulayici</h4>
+          <p>Ayni isi yapay zekayla 10 kat hizli yapan ama hala "ne yapilacagini" baskasinin soyledigi calisan. IK bu asamada: "AI kullanabiliyor mu?" sorusunu ise alim kriterine ekliyor.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+        </div>
+        <div class="flow-content">
+          <h4>Yenisi: Sistem Tasarlayan Insan</h4>
+          <p>Ne uretecegini, neden uretecegini ve nasil bir sistem kurulacagini tasarlayan insan. IK'nin aramasini gereken profil: uygulayan degil, dusunup tasarlayan. Uretim AI'da, vizyon insanda.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-row">
+      <div class="insight-box">
+        <div class="insight-icon">&#127959;</div>
+        <h4>IK Aksiyon: Is Tanimlari</h4>
+        <p>Tum pozisyonlarin is tanimlarini gozden gecir. "Ne yapiyor?" degil "ne dusunuyor, ne tasarliyor?" perspektifiyle yeniden yaz. Operasyonel gorevleri AI'ya devret, insani stratejik gorevlere odakla.</p>
+      </div>
+      <div class="insight-box">
+        <div class="insight-icon">&#127891;</div>
+        <h4>IK Aksiyon: Performans Kriterleri</h4>
+        <p>"Kac rapor hazirladin?" yerine "Hangi sistemi iyilestirdin? Hangi sorunu farkli cerceveledi? Nasil bir inovasyon onerdin?" Performans olcumu, uretim miktarindan dusunce kalitesine kayiyor.</p>
+      </div>
+      <div class="insight-box">
+        <div class="insight-icon">&#128640;</div>
+        <h4>IK Aksiyon: Kariyer Yollari</h4>
+        <p>Dikey kariyer basamaklari yerine, yatay beceri genislemesi ve proje bazli kariyer hareketliligi. "Bir ust pozisyon" degil, "bir farkli perspektif" kazanmak kariyer gelisimi oluyor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 12: IK'NIN KENDI DONUSUMU -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 12</div>
+    <h2>IK'nin Kendi Donusumu — Operasyondan Stratejiye</h2>
+    <p class="section-lead">IK, baskalarinin donusumunu yonetmeden once kendi donusumunu tamamlamali. Operasyonel IK'dan stratejik IK'ya gecis, bu cagin en kritik kariyer hamlesilerinden biri.</p>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>IK'ci Profili Degisiyor</h3>
+        <p>Bordro + ise alim + disiplin isleri yapan IK devri kapaniyor. Yeni IK: veri okuyan, kulturel donusumu tasarlayan, yonetim kuruluyla ayni masada oturan, is stratejisini insan stratejisiyle eslestiren bir rol. Siz hangi asamadasiniz?</p>
+        <span class="tag tag-ik">Kisisel Donusum</span>
+      </div>
+      <div class="topic-card">
+        <h3>AI Okur-Yazarligi IK Icin Zorunluluk</h3>
+        <p>IK profesyonelinin AI araclariyla calismasi artik "ekstra" degil, temel yetkinlik. ChatGPT ile is ilani yazmak, AI ile anket analiz etmek, copilot ile rapor hazirlamak — bu araclarla calismayi gunluk rutine donusturmek sart.</p>
+        <span class="tag tag-ai">Temel Yetkinlik</span>
+      </div>
+      <div class="topic-card">
+        <h3>IK'nin CEO Ile Yeni Konusmasi</h3>
+        <p>"Bu ay 15 kisi ise aldik, turnover %12" degil — "Organizasyonun AI hazirlik seviyesi 3/10, kritik rollerin %40'inda yetkinlik gapi var, liderlik pipeline'imiz 18 ay sonrasini karsilayamiyor." Stratejik dil, stratejik IK.</p>
+        <span class="tag tag-liderlik">Stratejik Dil</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 13: YONETICILERE UYARILAR -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 13</div>
+    <h2>IK'dan Yoneticilere Kritik Uyarilar</h2>
+    <p class="section-lead">IK, yoneticilerin yapay zeka donusumundeki en buyuk destekleyicisi. Ama ayni zamanda en onemli uyaricisi da olmali. Su mesajlari tasimak IK'nin sorumlulugu.</p>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>"5 Dakikada Yapilir" Tuzagi</h3>
+        <p>Hizlanma baskisi kaliteyi dusuruyor. Hollanda'daki hakim: "Biz artik hakim degiliz, editoruz." IK'nin uyarisi: Calisanlardan "AI ile hizli yap" beklerken, kalite kontrolu ve insan dokunusunu kaybetmeyin.</p>
+        <span class="tag tag-liderlik">Kalite Riski</span>
+      </div>
+      <div class="topic-card">
+        <h3>Know-How Kaybi Uyarisi</h3>
+        <p>Insana hizmet verdiginiz her yerde insani devre disi biraktikca know-how'i kaybedersiniz. IK olarak uyarmaliyiz: Junior calisanlari AI'ya teslim ederseniz, 5 yil sonra senior seviyeye ulasacak kimseniz kalmaz. Ciraklik yolculugu hala gerekli.</p>
+        <span class="tag tag-kultur">Denge Gerekli</span>
+      </div>
+      <div class="topic-card">
+        <h3>300 Oneri Sorunu</h3>
+        <p>Eskiden 3 oneri alan yonetici, artik GPT destekli 300 oneri aliyor. Suslu ama alti bos fikirler cogaldi. IK'nin rolu: yoneticilere "karar kalitesi" egitimi vermek, bilgi kirliligi icinde sinyal-gurultu ayrimini ogretmek.</p>
+        <span class="tag tag-ai">Karar Kalitesi</span>
+      </div>
+      <div class="topic-card">
+        <h3>Calisan Refahini Korumak</h3>
+        <p>"Herkes AI ogrenmeli, hemen simdi, yoksa isini kaybedersin!" panigi calisanlarda anksiyete yaratir. IK'nin gorevi: donusumu korkutarak degil, destekleyerek yonetmek. Ogrenme firsatlari sunmak, guvenli alan yaratmak, gecis surecini insanca tasarlamak.</p>
+        <span class="tag tag-insan">Calisan Refahi</span>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "Yapay zeka bir arac — sirketine aldigin bir server gibi. Mesele, bunun nasil kullanildiginin kulturunu tutturmak. Ve kultur tutturmak IK'nin isidir."
+      <div class="quote-author">— Bediz Kilickini</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 14: ETIK & HUKUKI CERCEVE -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 14</div>
+    <h2>AI Etigi ve Hukuki Cerceve — IK'nin Koruyucu Rolu</h2>
+    <p class="section-lead">Yapay zekanin IK sureclerinde kullanimi, etik ve hukuki sorumluluklar getiriyor. IK, organizasyonun bu alandaki vicdani ve kalkanı olmali.</p>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>Algoritmik Onyargi (Bias)</h3>
+        <p>AI modelleri egitim verisindeki onyargilari tasiyor. Ise alimda, performans degerlendirmede, terfi onerisinde AI kullanirken: cinsiyet, yas, etnik koken bazli ayrimcilik riski var. IK, AI ciktilarini duzenli olarak bias denetimine tabi tutmali.</p>
+        <span class="tag tag-etik">Bias Denetimi</span>
+      </div>
+      <div class="topic-card">
+        <h3>Veri Mahremiyeti</h3>
+        <p>Calisan verileri (saglik, performans, kisisel bilgiler) AI araclarina girildiginde nereye gidiyor? KVKK ve GDPR uyumlulugu IK'nin sorumlulugu. Hangi calisan verisinin hangi AI aracina girildigi, kim tarafindan erisildigi net olmali.</p>
+        <span class="tag tag-etik">Veri Guvenligi</span>
+      </div>
+      <div class="topic-card">
+        <h3>Seffaflik Ilkesi</h3>
+        <p>Calisanlara sormadan CV'lerini AI'ya tarat, performanslarini AI'ya degerlendir, terfilerini algoritmayla belirle — bu kabul edilebilir mi? IK, AI kullaniminda seffaflik politikasi olusturmali. Calisan bilmeli: nerede AI kullaniliyor, nasil karar veriliyor.</p>
+        <span class="tag tag-ik">Seffaflik Politikasi</span>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "Teknoloji ne kadar guclenirse, ona sinir koyan insan o kadar degerli olur. IK, organizasyonun etik pusulasıdır — bu rol yapay zeka caginda her zamankinden daha kritik."
+      <div class="quote-author">— Bediz Kilickini & Serhat Bicakci</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOLUM 15: KAPANIS -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">Bolum 15</div>
+    <h2>Kapanis — IK Icin Yol Haritasi</h2>
+    <p class="section-lead">Bu keynote, IK profesyonellerine yapay zekayi tarihsel perspektiften sunuyor. Basarili ve basarisiz tarihsel orneklerle harmanlayarak, IK'nin donusumunu ve organizasyondaki kritik rolunu ciziyor.</p>
+
+    <div class="insight-row">
+      <div class="insight-box">
+        <div class="insight-icon">&#127919;</div>
+        <h4>Kulturu Yeniden Tasarla</h4>
+        <p>Kepengi indirip yeniden acma degil — mevcut sirket kulturunu AI cagina hazir hale getirmek. IK bu donusumun mimari.</p>
+      </div>
+      <div class="insight-box">
+        <div class="insight-icon">&#129504;</div>
+        <h4>Kendinizi Donusturun</h4>
+        <p>IK profesyoneli olarak once kendi AI yolculugunuzu baslatın. Araclari deneyin, deneylerin, hata yapin. Baskalarinin donusumunu yonetmeden once kendinizi donusturun.</p>
+      </div>
+      <div class="insight-box">
+        <div class="insight-icon">&#129309;</div>
+        <h4>Insani Merkeze Koy</h4>
+        <p>Yapay zekasiz bir dunya yok. Ama insansiz bir is dunyasi da surdurulebilir degil. IK'nin varlık sebebi: Bu dengeyi korumak.</p>
+      </div>
+    </div>
+
+    <div class="insight-row">
+      <div class="insight-box">
+        <div class="insight-icon">&#9881;</div>
+        <h4>Operasyondan Stratejiye Gec</h4>
+        <p>Rutin IK islerini AI'ya devret. Kazanilan zamani stratejik isler icin kullan: kultur tasarimi, liderlik gelisimi, yetenek planlama, organizasyon tasarimi.</p>
+      </div>
+      <div class="insight-box">
+        <div class="insight-icon">&#128736;</div>
+        <h4>Is Tanimlarini Yeniden Yaz</h4>
+        <p>Tum organizasyonun is tanimlarini, yetkinlik cercevelerini, performans kriterlerini ve kariyer yollarini AI cagi icin yeniden kurgula. Bu IK'nin en buyuk projesi.</p>
+      </div>
+      <div class="insight-box">
+        <div class="insight-icon">&#128737;</div>
+        <h4>Etik Kalkani Ol</h4>
+        <p>AI'nin adil, seffaf ve sorumlu kullanilmasi IK'nin sorumlulugu. Bias denetimi, veri mahremiyeti, calisan haklari — bunlarin takipcisi IK olmali.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <strong>Yapay Zeka Caginda Insan Kaynaklari</strong> — Bediz Kilickini & Serhat Bicakci AI & IK Keynote
+</footer>
+
+</body>
+</html>
