@@ -5,7 +5,12 @@ const path = require('path');
 const PORT = process.env.PORT || 8080;
 
 const server = http.createServer((req, res) => {
-  const filePath = path.join(__dirname, 'index.html');
+  let filePath;
+  if (req.url === '/ik' || req.url === '/ik/') {
+    filePath = path.join(__dirname, 'ik.html');
+  } else {
+    filePath = path.join(__dirname, 'index.html');
+  }
   fs.readFile(filePath, (err, data) => {
     if (err) {
       res.writeHead(500);
